@@ -23,17 +23,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setText("Showing search results for: " + message);
 
+        //Load a Webview, and prevent it from automatically redirecting to the chrome app
+        final WebView wbView = (WebView) findViewById(R.id.webView1);
+        wbView.setWebViewClient(new WebViewClient());
+        wbView.getSettings().setJavaScriptEnabled(true);
+        wbView.loadUrl("https://google.ie/search?q=" + message);
+        wbView.clearView();
+        wbView.measure(100, 100);
+        wbView.getSettings().setUseWideViewPort(true);
+        wbView.getSettings().setLoadWithOverviewMode(true);
 
-//        WebView webView = findViewById(R.id.webView1);
-//        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view = findViewById(R.id.webView1);
-                view.loadUrl("https://google.ie/search?q=" + message);
-                return true;
-            }
-        });
-//        webView.loadUrl();
     }
 }
